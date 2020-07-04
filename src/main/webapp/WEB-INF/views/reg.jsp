@@ -10,6 +10,8 @@
     <title>Регистрация</title>
 </head>
 <body>
+
+
 <div class="authorization">
     <h2>Регистрация</h2>
         <form:form action="/reg" method="post" modelAttribute="player">
@@ -21,6 +23,7 @@
                 <tr>
                     <td><form:label  path="mail">Почта</form:label></td>
                     <td><form:input path="mail"/></td>
+
                 </tr>
                 <tr>
                     <td><form:label  path="password">Пароль:</form:label></td>
@@ -31,9 +34,12 @@
                 </tr>
 
             </table>
-
-
         </form:form>
+    <c:if test="${not empty message}">
+        <div style="color:red; font-weight: bold; margin: 30px 0px;">
+                ${message}
+        </div>
+    </c:if>
 </div>
 <a style="margin-left: 5px" class="header__auth" href="/">Войти</a>
 </body>

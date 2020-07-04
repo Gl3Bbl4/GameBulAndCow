@@ -19,13 +19,16 @@ public class AttemptController {
     public String checkValueByPlayer(@RequestParam("value") String valuePlayer,
                                      @RequestParam("idGame") Long idGame,
                                      Model model) {
-        Status statusAtt = attemptService.checkAnswer(valuePlayer, idGame);
         String error = null, gameIsEnd=null;
+
+        Status statusAtt = attemptService.checkAnswer(valuePlayer, idGame);
+
         if(statusAtt == Status.WRONG) {
-            error = "Значение должно состоять из 4 чисел";
+            error = "true";
         } else if(statusAtt == Status.IS_END) {
-            gameIsEnd = "Вы угадали! Начните новую игру.";
+            gameIsEnd = "true";
         }
+
         model.addAttribute("error", error);
         model.addAttribute("gameIsEnd", gameIsEnd);
         model.addAttribute("idGame", idGame);

@@ -7,13 +7,13 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8" />
-    <title>Бык или Корова</title>
+    <title>Бык и Корова</title>
     <link rel="stylesheet" type="text/css" href="/resources/css/style.css">
 </head>
 <body>
     <div class="container">
         <header class="header">
-            <h1 class="header__title">Игра "Бык или Корова"</h1>
+            <h1 class="header__title">Игра "Бык и Корова"</h1>
             <a class="header__auth" href="/new">Новая игра</a>
             <a class="header__auth" href="/logout">Выход</a>
 
@@ -21,7 +21,7 @@
 
         <c:if test="${not empty gameIsEnd}">
             <div style="display: flex; justify-content: center; color: #00ff01; font-size: 28px; width: 100%; margin-top: 20px">
-                ${gameIsEnd}
+                Вы угадали! Начните новую игру.
             </div>
         </c:if>
 
@@ -38,7 +38,7 @@
                 </form>
                 <c:if test="${not empty error}">
                     <div style="margin-left: 10px; color: #8b000b">
-                        ${error}
+                        Значение должно состоять из 4 чисел
                     </div>
                 </c:if>
 

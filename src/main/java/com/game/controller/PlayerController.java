@@ -25,11 +25,6 @@ public class PlayerController {
         return "reg";
     }
 
-//    @GetMapping("/")
-//    public String login() {
-//        return "login";
-//    }
-
     @PostMapping("/reg")
     public String submitForm(@ModelAttribute("player") Player player, Model model) {
         Status statusReg = playerService.save(player);
@@ -61,6 +56,6 @@ public class PlayerController {
         if (auth != null){
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
-        return "redirect:/login?logout=true";
+        return "redirect:/?logout=true";
     }
 }

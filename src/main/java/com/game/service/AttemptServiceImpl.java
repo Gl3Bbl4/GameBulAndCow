@@ -11,7 +11,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import static com.game.service.GameServiceImpl.LENGTH_CODE;
 
@@ -20,7 +23,7 @@ import static com.game.service.GameServiceImpl.LENGTH_CODE;
 public class AttemptServiceImpl implements AttemptService {
     private AttemptDAO attemptDAO;
     private GameDAO gameDAO;
-private RatingDAO ratingDAO;
+    private RatingDAO ratingDAO;
 
     @Transactional
     public Status save(Attempt attempt, Game game) {
@@ -42,6 +45,17 @@ private RatingDAO ratingDAO;
         return fromAttemptToStringFormat(attemptDAO.findAttemptsByGameId(idGame));
     }
 
+    @Override
+    public Status checkAnswer(String _valuePlayer, Long idGame) {
+        Game game = gameDAO.findGameById(idGame);
+        if (game == null) return Status.WRONG;
+        if (game.isEnd()) return Status.IS_END;
+        if (checkColAndRepeatingValue(_valuePlayer) == Status.WRONG) return Status.WRONG;
+
+        Byte[] valuePlayer = parsingValuePlayerForByteArr(_valuePlayer);
+        return calculatedBulAndCow(valuePlayer, game);
+    }
+
     //Формирование строки для игрока с угаданными значениями
     private List<String> fromAttemptToStringFormat(List<Attempt> attemptList) {
         List<String> bulAndColList = new ArrayList<>();
@@ -53,24 +67,6 @@ private RatingDAO ratingDAO;
         return bulAndColList;
     }
 
-    private String fromByteTostring(Byte[] byteList) {
-        String str = new String();
-        for (Byte _byte : byteList) {
-            str += _byte;
-        }
-        return str;
-    }
-
-    @Override
-    public Status checkAnswer(String _valuePlayer, Long idGame) {
-        Game game = gameDAO.findGameById(idGame);
-        if (game == null) return Status.WRONG;
-        if (game.isEnd()) return Status.IS_END;
-        if (checkColAndRepeatingValue(_valuePlayer) == Status.WRONG) return Status.WRONG;
-
-        Byte[] valuePlayer = parsingValuePlayerForByteArr(_valuePlayer);
-        return calculatedBulAndCow(valuePlayer, game);
-    }
 
     //Проверка на валидность ответа присланного игроком
     private Status checkColAndRepeatingValue(String _valuePlayer) {
@@ -103,7 +99,7 @@ private RatingDAO ratingDAO;
         return false;
     }
 
-    //Подсчет угаданных числе
+    //Подсчет угаданных чисел
     private Status calculatedBulAndCow(Byte[] valuePlayer, Game game) {
         byte colBul = 0, colCow = 0;
         Byte[] rightValue = gameDAO.findRightValueById(game.getId());
@@ -129,5 +125,13 @@ private RatingDAO ratingDAO;
             valuePlayer[i] = (byte) Character.getNumericValue(_valuePlayer.toCharArray()[i]);
         }
         return valuePlayer;
+    }
+
+    private String fromByteTostring(Byte[] byteList) {
+        String str = new String();
+        for (Byte _byte : byteList) {
+            str += _byte;
+        }
+        return str;
     }
 }

@@ -3,15 +3,12 @@ package com.game.service;
 import com.game.VO.RatingVO;
 import com.game.jpa.PlayerDAO;
 import com.game.jpa.RatingDAO;
-import com.game.model.Attempt;
 import com.game.model.Game;
 import com.game.model.Player;
 import com.game.model.Rating;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,7 +18,7 @@ public class RatingServiceImpl implements RatingService {
     private RatingDAO ratingDAO;
     private PlayerDAO playerDAO;
 
-    //Подсчет рейтинга всех пользователей
+    //Подсчет рейтинга пользователей
     public void updateRatingList() {
         List<Player> playerList = playerDAO.findAll();
         for (Player player : playerList) {
