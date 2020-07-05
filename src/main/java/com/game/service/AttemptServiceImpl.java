@@ -102,13 +102,13 @@ public class AttemptServiceImpl implements AttemptService {
     //Подсчет угаданных чисел
     private Status calculatedBulAndCow(Byte[] valuePlayer, Game game) {
         byte colBul = 0, colCow = 0;
-        Byte[] rightValue = gameDAO.findRightValueById(game.getId());
+        Byte[] trueValue = gameDAO.findTrueValueById(game.getId());
         for (int i = 0; i < LENGTH_CODE; i++) {
-            if (rightValue[i].equals(valuePlayer[i])) {
+            if (trueValue[i].equals(valuePlayer[i])) {
                 colBul++;
             } else {
                 for (int j = 0; j < LENGTH_CODE; j++) {
-                    if (rightValue[i].equals(valuePlayer[j])) {
+                    if (trueValue[i].equals(valuePlayer[j])) {
                         colCow++;
                         break;
                     }

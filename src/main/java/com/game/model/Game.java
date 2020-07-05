@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 public class Game extends IdentifiableObject {
 
-    private Byte[] right_Value;
+    private Byte[] trueValue;
 
     private boolean isEnd;
 

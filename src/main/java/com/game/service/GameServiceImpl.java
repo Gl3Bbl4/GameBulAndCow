@@ -27,22 +27,22 @@ public class GameServiceImpl implements GameService {
         Game game = new Game();
         game.setPlayer(player);
         game.setEnd(false);
-        game.setRight_Value(generateRightValue());
+        game.setTrueValue(generateTrueValue());
         return gameDAO.save(game).getId();
     }
 
-    private Byte[] generateRightValue() {
-        Byte[] rightValue = new Byte[LENGTH_CODE];
+    private Byte[] generateTrueValue() {
+        Byte[] trueValue = new Byte[LENGTH_CODE];
         Set<Byte> uniqueValue = new HashSet<>();
         Random rn = new Random();
 
-        for (int i = 0; i < rightValue.length; i++) {
+        for (int i = 0; i < trueValue.length; i++) {
             byte value = (byte) rn.nextInt(9);
             while(!uniqueValue.add(value)){
                 value = (byte) rn.nextInt(9);
             }
-            rightValue[i] = value;
+            trueValue[i] = value;
         }
-        return rightValue;
+        return trueValue;
     }
 }

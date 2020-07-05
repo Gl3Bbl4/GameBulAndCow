@@ -24,8 +24,4 @@ public class MvcConfig extends WebMvcConfigurerAdapter
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
     }
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("");
-    }
 }
