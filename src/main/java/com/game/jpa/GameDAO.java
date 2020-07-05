@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 public interface GameDAO extends JpaRepository<Game, Long> {
-    @Query(value = "SELECT g.trueValue FROM Game g WHERE g.id = :id", nativeQuery = true)
+    @Query(value = "SELECT g.true_Value FROM Game g WHERE g.id = :id", nativeQuery = true)
     Byte[] findTrueValueById(@Param("id") Long id);
 
     @Query("SELECT g FROM Game g WHERE g.id = :idGame")

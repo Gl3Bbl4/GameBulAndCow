@@ -11,6 +11,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,10 +27,10 @@ public class GameController {
     private RatingService ratingService;
 
     @GetMapping("/new")
-    public String startGame(@AuthenticationPrincipal Player player, Model model) {
+    public ModelAndView startGame(@AuthenticationPrincipal Player player, ModelMap model) {
         Long idGame = gameService.startNewGame(player);
         model.addAttribute("idGame", idGame);
-        return "redirect:/game";
+        return new ModelAndView("redirect:/game", model);
     }
 
     @GetMapping("/game")
